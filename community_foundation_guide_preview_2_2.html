@@ -1,0 +1,3167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Canadian Community Foundation Guide</title>
+<style>
+  :root {
+    --blue-50:#eff6ff; --blue-100:#dbeafe; --blue-600:#2563eb; --blue-700:#1d4ed8; --blue-800:#1e40af;
+    --slate-50:#f8fafc; --gray-50:#f9fafb; --gray-100:#f3f4f6; --gray-200:#e5e7eb; --gray-300:#d1d5db;
+    --gray-400:#9ca3af; --gray-500:#6b7280; --gray-600:#4b5563; --gray-700:#374151; --gray-800:#1f2937;
+    --amber-50:#fffbeb; --amber-200:#fde68a; --amber-600:#d97706; --red-600:#dc2626;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(to bottom right, var(--slate-50), var(--blue-50));
+    color: var(--gray-800);
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+  .header { text-align:center; margin-bottom: 24px; }
+  .header h1 { font-size: 2rem; font-weight: 800; margin: 0 0 8px; color: var(--gray-800); }
+  .header p { color: var(--gray-600); margin:0; }
+
+  .card { background:#fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06); padding: 16px; margin-bottom: 16px; }
+
+  .legend-title { display:flex; align-items:center; gap:8px; font-weight:600; margin-bottom: 12px; color: var(--gray-800); }
+  .legend-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  @media (min-width: 640px) { .legend-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (min-width: 900px) { .legend-grid { grid-template-columns: repeat(8, 1fr); } }
+  .group-chip {
+    border: 1px solid var(--gray-200); background: var(--gray-50); border-radius: 8px; padding: 8px 6px;
+    font-size: 11px; text-align:center; cursor: pointer; color: var(--gray-700); transition: all .15s;
+  }
+  .group-chip strong { display:block; font-size: 14px; }
+  .group-chip:hover { background: var(--blue-50); }
+  .group-chip.active { background: var(--blue-600); border-color: var(--blue-600); color: #fff; }
+
+  .search-row { position: relative; margin-bottom: 12px; }
+  .search-row input[type=text].main-search {
+    width: 100%; padding: 12px 12px 12px 38px; border: 1px solid var(--gray-300); border-radius: 8px; font-size: 14px;
+  }
+  .search-icon { position:absolute; left: 12px; top: 12px; color: var(--gray-400); }
+
+  .filters-row { display:flex; flex-wrap: wrap; gap: 10px; align-items:center; }
+  select, input[type=text], input[type=number] {
+    border: 1px solid var(--gray-300); border-radius: 8px; padding: 8px 10px; font-size: 13px; font-family: inherit;
+  }
+  .btn-toggle {
+    display:flex; align-items:center; gap:6px; border:1px solid var(--gray-300); background:#fff; border-radius:8px;
+    padding: 8px 12px; font-size: 13px; cursor:pointer; color: var(--gray-700);
+  }
+  .btn-clear { color: var(--red-600); background:none; border:none; cursor:pointer; font-size: 13px; display:flex; align-items:center; gap:4px; }
+
+  .advanced { display:none; margin-top: 16px; padding-top:16px; border-top: 1px solid var(--gray-100); grid-template-columns: 1fr; gap: 12px; }
+  .advanced.open { display:grid; }
+  @media (min-width: 768px) { .advanced.open { grid-template-columns: repeat(3, 1fr); } }
+  .field label { display:block; font-size: 11px; font-weight:600; color: var(--gray-500); margin-bottom: 4px; }
+  .field input, .field select { width: 100%; }
+  .hint { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
+
+  .results-count { color: var(--gray-600); font-size: 14px; margin: 4px 0 16px; }
+
+  .org-card { background:#fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin-bottom: 14px; overflow:hidden; }
+  .org-summary { width:100%; text-align:left; padding: 18px; background:none; border:none; cursor:pointer; display:flex; justify-content:space-between; gap:12px; }
+  .org-name-row { display:flex; align-items:center; gap:8px; margin-bottom: 6px; }
+  .org-name { font-size: 1.15rem; font-weight: 700; color: var(--gray-800); margin:0; }
+  .org-line { display:flex; align-items:flex-start; gap:8px; font-size: 13px; color: var(--gray-600); margin-top: 4px; }
+  .org-line a { color: var(--blue-600); text-decoration:none; }
+  .org-line a:hover { text-decoration: underline; }
+
+  .group-badge { background: var(--blue-100); color: var(--blue-800); border-radius: 8px; padding: 6px 10px; font-size: 11px; text-align:center; white-space:nowrap; }
+  .group-badge strong { display:block; font-size: 13px; }
+  .summary-right { display:flex; flex-direction: column; align-items:flex-end; gap:8px; flex-shrink:0; }
+  .chevron { color: var(--gray-400); }
+
+  .org-detail { padding: 0 18px 18px; border-top: 1px solid var(--gray-100); }
+  .detail-title { font-size: 12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color: var(--gray-500); margin: 14px 0 10px; }
+  .detail-grid { display:grid; grid-template-columns: 1fr; gap: 10px; font-size: 13px; margin-bottom: 16px; }
+  @media (min-width:640px) { .detail-grid { grid-template-columns: 1fr 1fr; } }
+  .detail-item { display:flex; align-items:center; gap:8px; color: var(--gray-700); }
+  .detail-item.fee { background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 6px 10px; }
+
+  .staff-item { background: var(--gray-50); border-radius: 8px; padding: 10px 12px; margin-bottom:8px; font-size:13px; }
+  .staff-name { font-weight: 700; color: var(--gray-800); }
+  .staff-role { color: var(--gray-600); }
+  .staff-exp { font-size: 11px; color: var(--gray-500); margin-top:4px; }
+  .staff-contacts { display:flex; flex-wrap:wrap; gap: 12px; margin-top: 8px; }
+  .staff-contacts a { font-size: 11px; color: var(--blue-600); text-decoration:none; }
+  .staff-contacts a:hover { text-decoration: underline; }
+
+  .cra-id { display:flex; align-items:center; gap:6px; font-size: 11px; color: var(--gray-400); padding-top: 12px; border-top: 1px solid var(--gray-100); }
+
+  .empty { text-align:center; padding: 48px 16px; background:#fff; border-radius:12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .empty p:first-child { font-size: 16px; color: var(--gray-600); }
+  .empty p:last-child { color: var(--gray-500); margin-top:6px; }
+
+  .footer { text-align:center; color: var(--gray-500); font-size: 11px; margin-top: 28px; line-height:1.6; }
+
+  svg.icon { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; flex-shrink:0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>Canadian Community Foundation Guide</h1>
+    <p>A directory of Community Foundations and their staff, for CF-to-CF referrals and resource sharing</p>
+  </div>
+
+  <div class="card">
+    <div class="legend-title">
+      <svg class="icon" style="color:var(--blue-600)" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      Search by TMV / Funds Under Management (Group)
+    </div>
+    <div class="legend-grid" id="groupLegend"></div>
+  </div>
+
+  <div class="card">
+    <div class="search-row">
+      <svg class="icon search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" class="main-search" id="searchTerm" placeholder="Search by Name, Province, City, Group, or staff name / role..." />
+    </div>
+    <div class="filters-row">
+      <select id="provinceFilter"><option value="all">All Provinces</option></select>
+      <select id="cityFilter"><option value="all">All Cities</option></select>
+      <button class="btn-toggle" id="advToggle">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+        Staff &amp; Fee Filters <span id="advChevron">▾</span>
+      </button>
+      <button class="btn-clear" id="clearFilters" style="display:none;">✕ Clear filters (<span id="filterCount">0</span>)</button>
+    </div>
+    <div class="advanced" id="advancedPanel">
+      <div class="field">
+        <label>Staff Member Name</label>
+        <input type="text" id="staffNameFilter" placeholder="e.g., Monica Sigurdson" />
+      </div>
+      <div class="field">
+        <label>Staff Role</label>
+        <select id="roleFilter"><option value="all">All Roles</option></select>
+      </div>
+      <div class="field">
+        <label>Max Cost Recovery / Admin Fee (%)</label>
+        <input type="number" step="0.1" min="0" id="feeMax" placeholder="e.g., 2.0" />
+        <div class="hint">Fee is not shown on the summary card — filter here, or open a foundation's full profile to see it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-count" id="resultsCount"></div>
+  <div id="orgList"></div>
+  <div class="empty" id="emptyState" style="display:none;">
+    <p>No Community Foundations found matching your search.</p>
+    <p>Try adjusting your search terms or filters.</p>
+  </div>
+
+  <div class="footer">
+    <p>Data source: TEST - Canadian CF Info Sheet (Org &amp; Staff tabs). Replace the sample data above once the finished workbook is available.</p>
+    <p>Experience Areas keyword search across the staff directory is planned as a future enhancement.</p>
+  </div>
+</div>
+
+<script>
+const FUND_SIZE_GROUPS = [
+  { code: 'A', label: '<$1M' },
+  { code: 'B', label: '$1M-$5M' },
+  { code: 'C', label: '$5M-$12M' },
+  { code: 'D', label: '$12M-$25M' },
+  { code: 'E', label: '$25M-$100M' },
+  { code: 'F', label: '$100M-$250M' },
+  { code: 'G', label: '$250M-$500M' },
+  { code: 'H', label: '$500M+' },
+];
+
+const organizations = [
+  {
+    "craId": "844555789RR0001",
+    "name": "Airdrie And District Community Foundation",
+    "address": "203 - 304 Main St Se",
+    "city": "Airdrie",
+    "province": "AB",
+    "postalCode": "T4B3C3",
+    "generalEmail": null,
+    "established": "2012-09-01",
+    "yearsInExistence": 13.96,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "751516931RR0001",
+    "name": "Algoma Community Foundation",
+    "address": "17 Irwin Ave",
+    "city": "Sault Ste. Marie",
+    "province": "ON",
+    "postalCode": "P6A3P7",
+    "generalEmail": null,
+    "established": "2021-04-01",
+    "yearsInExistence": 5.38,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "853991453RR0001",
+    "name": "Amherstburg Community Foundation",
+    "address": "9 - 80 Richmond St",
+    "city": "Amherstburg",
+    "province": "ON",
+    "postalCode": "N9V1E9",
+    "generalEmail": null,
+    "established": "2009-08-12",
+    "yearsInExistence": 17.02,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "888499241RR0001",
+    "name": "Abbotsford Community Foundation",
+    "address": "201-2890 Garden St",
+    "city": "Abbotsford",
+    "province": "BC",
+    "postalCode": "V2T4W7",
+    "generalEmail": null,
+    "established": "1984-01-01",
+    "yearsInExistence": 42.63,
+    "group": "D",
+    "tmv": 19958459.0,
+    "costRecoveryFee": 0.015
+  },
+  {
+    "craId": "892167677RR0001",
+    "name": "Altona Community Foundation Inc.",
+    "address": "Box 2076",
+    "city": "Altona",
+    "province": "MB",
+    "postalCode": "R0G0B0",
+    "generalEmail": null,
+    "established": "1994-01-19",
+    "yearsInExistence": 32.58,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "894150259RR0001",
+    "name": "Aylmer Area Community Foundation",
+    "address": "51 Talbot St E",
+    "city": "Aylmer",
+    "province": "ON",
+    "postalCode": "N5H1H3",
+    "generalEmail": null,
+    "established": "1993-06-25",
+    "yearsInExistence": 33.15,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "118977107RR0001",
+    "name": "B.C. Interior Community Foundation",
+    "address": "2-219 Victoria St",
+    "city": "Kamloops",
+    "province": "BC",
+    "postalCode": "V2C2A1",
+    "generalEmail": null,
+    "established": "1984-09-17",
+    "yearsInExistence": 41.92,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "126479674RR0001",
+    "name": "B.D.H. Community Foundation / Fondation Communautaire B.D.H.",
+    "address": "1 Carre Cummings, Suite 300",
+    "city": "Montreal",
+    "province": "QC",
+    "postalCode": "H3W1M6",
+    "generalEmail": null,
+    "established": "1976-03-09",
+    "yearsInExistence": 50.44,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "874819410RR0001",
+    "name": "Banff Canmore Community Foundation",
+    "address": "214 Banff Ave Po Box 3100",
+    "city": "Banff",
+    "province": "AB",
+    "postalCode": "T1L1C7",
+    "generalEmail": null,
+    "established": "2002-09-27",
+    "yearsInExistence": 23.89,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "852025980RR0001",
+    "name": "Bradford West Gwillimbury And District Community Foundation",
+    "address": "21 Holland St. West P.O. Box 190",
+    "city": "Bradford",
+    "province": "ON",
+    "postalCode": "L3Z2A8",
+    "generalEmail": null,
+    "established": "2007-11-09",
+    "yearsInExistence": 18.77,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "863749016RR0001",
+    "name": "Balcarres & District Community Foundation Inc.",
+    "address": "Box 850",
+    "city": "Balcarres",
+    "province": "SK",
+    "postalCode": "S0G0C0",
+    "generalEmail": null,
+    "established": "2001-12-07",
+    "yearsInExistence": 24.7,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "844126276RR0001",
+    "name": "Barrie Community Foundation",
+    "address": "Po Box 162 Stn Main",
+    "city": "Barrie",
+    "province": "ON",
+    "postalCode": "L4M4T2",
+    "generalEmail": null,
+    "established": "2005-04-25",
+    "yearsInExistence": 21.31,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "892118688RR0001",
+    "name": "Battle River Community Foundation",
+    "address": "P.O. Box 1122",
+    "city": "Camrose",
+    "province": "AB",
+    "postalCode": "T4V4E7",
+    "generalEmail": null,
+    "established": "1995-01-03",
+    "yearsInExistence": 31.62,
+    "group": "D",
+    "tmv": 23037328.0,
+    "costRecoveryFee": 0.01
+  },
+  {
+    "craId": "827628272RR0001",
+    "name": "Battlefords And District Community Foundation Inc.",
+    "address": "P.O. Box 1302",
+    "city": "North Battleford",
+    "province": "SK",
+    "postalCode": "S9A3L8",
+    "generalEmail": null,
+    "established": "2005-10-12",
+    "yearsInExistence": 20.85,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "894809730RR0001",
+    "name": "Beautiful Plains Community Foundation Inc.",
+    "address": "Box 486",
+    "city": "Neepawa",
+    "province": "MB",
+    "postalCode": "R0J1H0",
+    "generalEmail": null,
+    "established": "1994-07-19",
+    "yearsInExistence": 32.08,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "854708476RR0001",
+    "name": "Big Grass Community Foundation Inc.",
+    "address": "P.O. Box 497",
+    "city": "Gladstone",
+    "province": "MB",
+    "postalCode": "R0J0T0",
+    "generalEmail": null,
+    "established": "2004-10-20",
+    "yearsInExistence": 21.83,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "884086703RR0001",
+    "name": "Biggar And District Community Foundation Inc.",
+    "address": "Box 489",
+    "city": "Biggar",
+    "province": "SK",
+    "postalCode": "S0K0M0",
+    "generalEmail": null,
+    "established": "2003-05-15",
+    "yearsInExistence": 23.26,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "883618514RR0001",
+    "name": "Bowen Island Community Foundation",
+    "address": "Po Box 18",
+    "city": "Bowen Island",
+    "province": "BC",
+    "postalCode": "V0N1G0",
+    "generalEmail": null,
+    "established": "2002-12-03",
+    "yearsInExistence": 23.71,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "861989465RR0001",
+    "name": "Brampton And Caledon Community Foundation",
+    "address": "Po Box 179 Stn Caledon",
+    "city": "Caledon East",
+    "province": "ON",
+    "postalCode": "L7C3L9",
+    "generalEmail": null,
+    "established": "2002-01-01",
+    "yearsInExistence": 24.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "883564494RR0001",
+    "name": "Brant Community Foundation",
+    "address": "B - 20 Corporate Pl",
+    "city": "Brantford",
+    "province": "ON",
+    "postalCode": "N3R8A6",
+    "generalEmail": null,
+    "established": "1998-06-01",
+    "yearsInExistence": 28.21,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "869509240RR0001",
+    "name": "Brokenhead River Community Foundation Inc",
+    "address": "Po Box 2225",
+    "city": "Beausejour",
+    "province": "MB",
+    "postalCode": "R0E0C0",
+    "generalEmail": null,
+    "established": "1999-01-01",
+    "yearsInExistence": 27.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "132091125RR0001",
+    "name": "Bulkley Valley Community Foundation",
+    "address": "Po Box 4584",
+    "city": "Smithers",
+    "province": "BC",
+    "postalCode": "V0J2N0",
+    "generalEmail": null,
+    "established": "1991-12-16",
+    "yearsInExistence": 34.67,
+    "group": "B",
+    "tmv": 4633364.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "857812739RR0001",
+    "name": "Burlington Community Foundation",
+    "address": "Po Box 91590 Rpo Roseland",
+    "city": "Burlington",
+    "province": "ON",
+    "postalCode": "L7R4L6",
+    "generalEmail": null,
+    "established": "2002-04-01",
+    "yearsInExistence": 24.38,
+    "group": "E",
+    "tmv": 25063140.0,
+    "costRecoveryFee": 0.0175
+  },
+  {
+    "craId": "106819295RR0001",
+    "name": "Burnaby Hospital And Community Foundation",
+    "address": "3935 Kincaid St",
+    "city": "Burnaby",
+    "province": "BC",
+    "postalCode": "V5G2X6",
+    "generalEmail": null,
+    "established": "1982-04-01",
+    "yearsInExistence": 44.38,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "861019743RR0001",
+    "name": "Caledonia Community Foundation",
+    "address": "Po Box 2101 Stn Main",
+    "city": "Caledonia",
+    "province": "ON",
+    "postalCode": "N3W2G6",
+    "generalEmail": null,
+    "established": "2009-01-01",
+    "yearsInExistence": 17.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "801839010RR0001",
+    "name": "Canada Post Community Foundation/Fondation Communautaire De Postes Canada",
+    "address": "P.O. Box 90007",
+    "city": "Ottawa",
+    "province": "ON",
+    "postalCode": "K1V1J8",
+    "generalEmail": null,
+    "established": "2008-04-16",
+    "yearsInExistence": 18.34,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "118843481RR0001",
+    "name": "Central Okanagan Foundation",
+    "address": "Landmark 1, 306 1726 Dolphin Ave.",
+    "city": "Kelowna",
+    "province": "BC",
+    "postalCode": "V1Y 9R9",
+    "generalEmail": null,
+    "established": "1977-01-31",
+    "yearsInExistence": 49.55,
+    "group": "E",
+    "tmv": 50318339.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "859545295RR0001",
+    "name": "Centre Wellington Community Foundation",
+    "address": "75 Melville St",
+    "city": "Elora",
+    "province": "ON",
+    "postalCode": "N0B1S0",
+    "generalEmail": null,
+    "established": "2009-06-26",
+    "yearsInExistence": 17.14,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "740518691RR0001",
+    "name": "Clearwater Community Foundation Inc.",
+    "address": "33 Boundary Trail Box 91",
+    "city": "Clearwater",
+    "province": "MB",
+    "postalCode": "R0K0M0",
+    "generalEmail": null,
+    "established": "2017-01-01",
+    "yearsInExistence": 9.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "891521742RR0001",
+    "name": "Community Foundation For Lennox & Addington",
+    "address": "2 - 116 John St",
+    "city": "Napanee",
+    "province": "ON",
+    "postalCode": "K7R1R2",
+    "generalEmail": null,
+    "established": "1987-12-08",
+    "yearsInExistence": 38.69,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "888751609RR0001",
+    "name": "Community Foundation Of The Kootenay Rockies",
+    "address": "Post Office Box 242",
+    "city": "Cranbrook",
+    "province": "BC",
+    "postalCode": "V1C4H8",
+    "generalEmail": null,
+    "established": "2003-12-05",
+    "yearsInExistence": 22.7,
+    "group": "A",
+    "tmv": 660022.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "140150509RR0001",
+    "name": "Community Foundation Of The South Okanagan Similkameen",
+    "address": "101 - 246 Martin St",
+    "city": "Penticton",
+    "province": "BC",
+    "postalCode": "V2A5K3",
+    "generalEmail": null,
+    "established": "1992-08-10",
+    "yearsInExistence": 34.02,
+    "group": "E",
+    "tmv": 51157842.0,
+    "costRecoveryFee": 0.015
+  },
+  {
+    "craId": "821735701RR0001",
+    "name": "Community Foundation Of Castlegar",
+    "address": "Po Box 3242 Stn Main",
+    "city": "Castlegar",
+    "province": "BC",
+    "postalCode": "V1N3H5",
+    "generalEmail": null,
+    "established": "2013-07-01",
+    "yearsInExistence": 13.13,
+    "group": "A",
+    "tmv": 230237.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "734092091RR0001",
+    "name": "Community Foundation Of Kawartha Lakes",
+    "address": "302 - 165 Kent St W",
+    "city": "Lindsay",
+    "province": "ON",
+    "postalCode": "K9V2Y5",
+    "generalEmail": null,
+    "established": "2019-04-01",
+    "yearsInExistence": 7.38,
+    "group": "A",
+    "tmv": 695956.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "119018349RR0001",
+    "name": "Community Foundation Of Lethbridge And Southwestern Alberta",
+    "address": "50 - 1202 2 Ave S",
+    "city": "Lethbridge",
+    "province": "AB",
+    "postalCode": "T1J0E3",
+    "generalEmail": null,
+    "established": "1967-01-01",
+    "yearsInExistence": 59.63,
+    "group": "E",
+    "tmv": 40750017.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "894354398RR0001",
+    "name": "Comox Valley Community Foundation",
+    "address": "C - 917 Fitzgerald Ave",
+    "city": "Courtenay",
+    "province": "BC",
+    "postalCode": "V9N2R6",
+    "generalEmail": null,
+    "established": "1996-04-29",
+    "yearsInExistence": 30.3,
+    "group": "D",
+    "tmv": 18145865.0,
+    "costRecoveryFee": 0.01
+  },
+  {
+    "craId": "870435161RR0001",
+    "name": "Campbell River Community Foundation",
+    "address": "302 - 871 Island Hwy",
+    "city": "Campbell River",
+    "province": "BC",
+    "postalCode": "V9W2C2",
+    "generalEmail": null,
+    "established": "1998-05-01",
+    "yearsInExistence": 28.3,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "887096089RR0001",
+    "name": "Carberry And Area Community Foundation, Inc.",
+    "address": "Box 807 40 Main Street",
+    "city": "Carberry",
+    "province": "MB",
+    "postalCode": "R0K0H0",
+    "generalEmail": null,
+    "established": "1998-10-26",
+    "yearsInExistence": 27.81,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "862823374RR0001",
+    "name": "Coldwell Community Foundation Inc.",
+    "address": "Po Box 154 35 Main St",
+    "city": "Lundar",
+    "province": "MB",
+    "postalCode": "R0C1Y0",
+    "generalEmail": null,
+    "established": "2005-09-22",
+    "yearsInExistence": 20.91,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "882618713RR0001",
+    "name": "Columbia Valley Community Foundation",
+    "address": "Po Box 991",
+    "city": "Invermere",
+    "province": "BC",
+    "postalCode": "V0A1K0",
+    "generalEmail": null,
+    "established": "2001-07-31",
+    "yearsInExistence": 25.05,
+    "group": "C",
+    "tmv": 6915660.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "891432395RR0001",
+    "name": "Community Foundation For Kingston & Area",
+    "address": "100 - 275 Ontario St",
+    "city": "Kingston",
+    "province": "ON",
+    "postalCode": "K7K2X5",
+    "generalEmail": null,
+    "established": "1995-06-01",
+    "yearsInExistence": 31.21,
+    "group": "E",
+    "tmv": 33997978.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "141036228RR0001",
+    "name": "Community Foundation Grey Bruce",
+    "address": "946 3rd Avenue East, Unit 3 P.O. Box 81",
+    "city": "Owen Sound",
+    "province": "ON",
+    "postalCode": "N4K5P1",
+    "generalEmail": null,
+    "established": "1994-06-02",
+    "yearsInExistence": 32.21,
+    "group": "D",
+    "tmv": 21112778.0,
+    "costRecoveryFee": 0.015
+  },
+  {
+    "craId": "898077912RR0001",
+    "name": "Community Foundation Of Campbellford/Seymour And Northumberland",
+    "address": "Po Box 1146 39 Doxsee Ave North",
+    "city": "Campbellford",
+    "province": "ON",
+    "postalCode": "K0L1L0",
+    "generalEmail": null,
+    "established": "2001-01-23",
+    "yearsInExistence": 25.57,
+    "group": "C",
+    "tmv": 6538447.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "891953143RR0001",
+    "name": "Community Foundation Of Central Alberta",
+    "address": "401 - 4901 48 St",
+    "city": "Red Deer",
+    "province": "AB",
+    "postalCode": "T4N6M4",
+    "generalEmail": null,
+    "established": "1989-07-01",
+    "yearsInExistence": 37.13,
+    "group": "D",
+    "tmv": 19239158.0,
+    "costRecoveryFee": 0.0165
+  },
+  {
+    "craId": "876232315RR0001",
+    "name": "Community Foundation Of Greater Peterborough",
+    "address": "202-261 George St North",
+    "city": "Peterborough",
+    "province": "ON",
+    "postalCode": "K9J3G9",
+    "generalEmail": null,
+    "established": "2002-04-12",
+    "yearsInExistence": 24.35,
+    "group": "D",
+    "tmv": 13782790.0,
+    "costRecoveryFee": 0.02
+  },
+  {
+    "craId": "861971257RR0001",
+    "name": "Community Foundation Of Halton North",
+    "address": "18 Martin St",
+    "city": "Milton",
+    "province": "ON",
+    "postalCode": "L9T2P9",
+    "generalEmail": null,
+    "established": "2003-01-29",
+    "yearsInExistence": 23.55,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "136030285RR0001",
+    "name": "Community Foundation Of Medicine Hat And Southeastern Alberta",
+    "address": "103 - 579 3 St Se",
+    "city": "Medicine Hat",
+    "province": "AB",
+    "postalCode": "T1A0H2",
+    "generalEmail": null,
+    "established": "1992-07-01",
+    "yearsInExistence": 34.13,
+    "group": "D",
+    "tmv": 24886907.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "140660846RR0001",
+    "name": "Community Foundation Of Portage And District, Inc.",
+    "address": "206 Saskatchewan Ave E",
+    "city": "Portage La Prairie",
+    "province": "MB",
+    "postalCode": "R1N0K9",
+    "generalEmail": null,
+    "established": "1994-06-01",
+    "yearsInExistence": 32.21,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "867169708RR0001",
+    "name": "Community Foundation Of Swan Valley Inc.",
+    "address": "Po Box 1509",
+    "city": "Swan River",
+    "province": "MB",
+    "postalCode": "R0L1Z0",
+    "generalEmail": null,
+    "established": "2005-01-01",
+    "yearsInExistence": 21.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "893197376RR0001",
+    "name": "Community Foundation Of The North Okanagan",
+    "address": "304 - 3402 27 Ave",
+    "city": "Vernon",
+    "province": "BC",
+    "postalCode": "V1T1S1",
+    "generalEmail": null,
+    "established": "1975-01-28",
+    "yearsInExistence": 51.56,
+    "group": "D",
+    "tmv": 19579968.0,
+    "costRecoveryFee": 0.0125
+  },
+  {
+    "craId": "871748943RR0001",
+    "name": "Community Foundation Of Whistler",
+    "address": "P.O. Box 1184",
+    "city": "Whistler",
+    "province": "BC",
+    "postalCode": "V0N1B0",
+    "generalEmail": null,
+    "established": "1999-04-20",
+    "yearsInExistence": 27.33,
+    "group": "C",
+    "tmv": 7404178.0,
+    "costRecoveryFee": 0.022
+  },
+  {
+    "craId": "867050528RR0001",
+    "name": "Creston Valley Community Foundation",
+    "address": "Po Box 701",
+    "city": "Creston",
+    "province": "BC",
+    "postalCode": "V0B1G0",
+    "generalEmail": null,
+    "established": "2005-01-01",
+    "yearsInExistence": 21.63,
+    "group": "C",
+    "tmv": 5984757.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "780219911RR0001",
+    "name": "Dufferin Community Foundation",
+    "address": "L-3a - 32 First St",
+    "city": "Orangeville",
+    "province": "ON",
+    "postalCode": "L9W2E1",
+    "generalEmail": null,
+    "established": "2018-02-14",
+    "yearsInExistence": 8.51,
+    "group": "B",
+    "tmv": 3571022.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "898797931RR0001",
+    "name": "Durham Community Foundation",
+    "address": "701 Rossland Rd E Box 322",
+    "city": "Whitby",
+    "province": "ON",
+    "postalCode": "L1N9K3",
+    "generalEmail": null,
+    "established": "1994-10-07",
+    "yearsInExistence": 31.86,
+    "group": "C",
+    "tmv": 5676824.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "898081757RR0001",
+    "name": "Dauphin & District Community Foundation Inc.",
+    "address": "100 Main Street S",
+    "city": "Dauphin",
+    "province": "MB",
+    "postalCode": "R7N1K3",
+    "generalEmail": null,
+    "established": "1995-07-25",
+    "yearsInExistence": 31.06,
+    "group": "C",
+    "tmv": 8389006.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "118884139RR0001",
+    "name": "Delta Community Foundation",
+    "address": "Po Box 18527 Rpo Ladner",
+    "city": "Delta",
+    "province": "BC",
+    "postalCode": "V4K4V7",
+    "generalEmail": null,
+    "established": "1987-09-15",
+    "yearsInExistence": 38.92,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "891648040RR0001",
+    "name": "Drayton Valley Community Foundation",
+    "address": "Po Box 6836 Stn Main",
+    "city": "Drayton Valley",
+    "province": "AB",
+    "postalCode": "T7A1S2",
+    "generalEmail": null,
+    "established": "1995-01-01",
+    "yearsInExistence": 31.63,
+    "group": "C",
+    "tmv": 7207394.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "758038814RR0001",
+    "name": "Eritrean-Canadian Community Foundation",
+    "address": "1400 - 18 King St E",
+    "city": "Toronto",
+    "province": "ON",
+    "postalCode": "M5C1C4",
+    "generalEmail": null,
+    "established": "2025-01-01",
+    "yearsInExistence": 1.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "890725542RR0001",
+    "name": "Edmonton Oilers Community Foundation",
+    "address": "300 - 10214 104 Ave Nw",
+    "city": "Edmonton",
+    "province": "AB",
+    "postalCode": "T5J0H6",
+    "generalEmail": null,
+    "established": "1991-01-08",
+    "yearsInExistence": 35.61,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "869042549RR0001",
+    "name": "Eenou-Eeyou Community Foundation / Fondation Communautaire Eenou-Eeyou",
+    "address": "205 Opemiska Meskino",
+    "city": "Ouje-Bougoumou",
+    "province": "QC",
+    "postalCode": "G0W3C0",
+    "generalEmail": null,
+    "established": "2000-06-27",
+    "yearsInExistence": 26.14,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "865337109RR0001",
+    "name": "Elgin-St. Thomas Community Foundation",
+    "address": "103 - 750 Talbot St",
+    "city": "St Thomas",
+    "province": "ON",
+    "postalCode": "N5P1E2",
+    "generalEmail": null,
+    "established": "2004-04-02",
+    "yearsInExistence": 22.38,
+    "group": "C",
+    "tmv": 10981578.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "775813280RR0001",
+    "name": "Elk Island Community Foundation",
+    "address": "4902 50th Street Po Box 70",
+    "city": "Vegreville",
+    "province": "AB",
+    "postalCode": "T9C1R1",
+    "generalEmail": null,
+    "established": "2018-06-21",
+    "yearsInExistence": 8.16,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "837732551RR0001",
+    "name": "Fondation Communautaire De Hearst Community Foundation",
+    "address": "8 Chemin Hamann",
+    "city": "Jogues",
+    "province": "ON",
+    "postalCode": "P0L1R0",
+    "generalEmail": null,
+    "established": "2008-06-27",
+    "yearsInExistence": 18.14,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "880167002RR0001",
+    "name": "Family & Friends Community Foundation Inc.",
+    "address": "216 Road Avenue East P. O. Box 800",
+    "city": "Langenburg",
+    "province": "SK",
+    "postalCode": "S0A2A0",
+    "generalEmail": null,
+    "established": "2003-07-14",
+    "yearsInExistence": 23.09,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "865366728RR0001",
+    "name": "Forest Community Foundation",
+    "address": "6 Frances Dr",
+    "city": "Forest",
+    "province": "ON",
+    "postalCode": "N0N1J0",
+    "generalEmail": null,
+    "established": "2002-01-10",
+    "yearsInExistence": 24.61,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "118931203RR0001",
+    "name": "Fredericton Community Foundation Inc.",
+    "address": "102 - 117 York St",
+    "city": "Fredericton",
+    "province": "NB",
+    "postalCode": "E3B3N6",
+    "generalEmail": null,
+    "established": "1967-01-01",
+    "yearsInExistence": 59.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "893162438RR0001",
+    "name": "Fundy Community Foundation",
+    "address": "P.O. Box 3902",
+    "city": "St Andrews",
+    "province": "NB",
+    "postalCode": "E5B3S7",
+    "generalEmail": null,
+    "established": "1993-11-16",
+    "yearsInExistence": 32.76,
+    "group": "C",
+    "tmv": 8891697.0,
+    "costRecoveryFee": 0.015
+  },
+  {
+    "craId": "881234116RR0001",
+    "name": "Golden And District Community Foundation",
+    "address": "Po Box 981",
+    "city": "Golden",
+    "province": "BC",
+    "postalCode": "V0A1H0",
+    "generalEmail": null,
+    "established": "2001-07-16",
+    "yearsInExistence": 25.09,
+    "group": "B",
+    "tmv": 1725549.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "872803598RR0001",
+    "name": "Grandview & District Community Foundation Inc",
+    "address": "Po Box 238",
+    "city": "Grandview",
+    "province": "MB",
+    "postalCode": "R0L0Y0",
+    "generalEmail": null,
+    "established": "1998-02-11",
+    "yearsInExistence": 28.52,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "804891968RR0001",
+    "name": "Headingley Community Foundation Inc.",
+    "address": "5353 Portage Avenue",
+    "city": "Headingley",
+    "province": "MB",
+    "postalCode": "R4H1J9",
+    "generalEmail": null,
+    "established": "2015-09-24",
+    "yearsInExistence": 10.9,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "890875727RR0001",
+    "name": "Huronia Community Foundation / La Fondation Communautaire Dela Huronie",
+    "address": "Po Box 324",
+    "city": "Midland",
+    "province": "ON",
+    "postalCode": "L4R4L1",
+    "generalEmail": null,
+    "established": "2000-03-02",
+    "yearsInExistence": 26.46,
+    "group": "B",
+    "tmv": 3538034.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "130527427RR0001",
+    "name": "Hamilton Community Foundation",
+    "address": "700-120 King St W",
+    "city": "Hamilton",
+    "province": "ON",
+    "postalCode": "L8P4V2",
+    "generalEmail": null,
+    "established": "1967-01-01",
+    "yearsInExistence": 59.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "870786142RR0001",
+    "name": "Hamiota Community Foundation Inc.",
+    "address": "Box 100 75 Maple Ave E.",
+    "city": "Hamiota",
+    "province": "MB",
+    "postalCode": "R0M0T0",
+    "generalEmail": null,
+    "established": "2003-05-16",
+    "yearsInExistence": 23.26,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "856514161RR0001",
+    "name": "Holland & Area Community Foundation Inc.",
+    "address": "Po Box 87",
+    "city": "Holland",
+    "province": "MB",
+    "postalCode": "R0G0X0",
+    "generalEmail": null,
+    "established": "2006-05-19",
+    "yearsInExistence": 20.25,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "834178428RR0001",
+    "name": "Icelandic River Community Foundation Inc.",
+    "address": "Box 159",
+    "city": "Arborg",
+    "province": "MB",
+    "postalCode": "R0C0A0",
+    "generalEmail": null,
+    "established": "2010-07-21",
+    "yearsInExistence": 16.07,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "771818309RR0001",
+    "name": "Indus Community Foundation",
+    "address": "Suite 206 3038 Hurontario St",
+    "city": "Mississauga",
+    "province": "ON",
+    "postalCode": "L5B3B9",
+    "generalEmail": null,
+    "established": "2024-07-16",
+    "yearsInExistence": 2.09,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "734400518RR0001",
+    "name": "Innisfil Community Foundation",
+    "address": "2101 Innisfil Beach Road",
+    "city": "Innisfil",
+    "province": "ON",
+    "postalCode": "L9S1A1",
+    "generalEmail": null,
+    "established": "2019-01-01",
+    "yearsInExistence": 7.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "896356771RR0001",
+    "name": "Jewish Community Foundation Of Calgary",
+    "address": "1607 90 Ave Sw",
+    "city": "Calgary",
+    "province": "AB",
+    "postalCode": "T2V4V7",
+    "generalEmail": null,
+    "established": "1990-01-25",
+    "yearsInExistence": 36.56,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "118974179RR0001",
+    "name": "Jewish Community Foundation Of Montreal/La Foundation Communautaire Juive De Montreal",
+    "address": "1 Carre Cummings Square",
+    "city": "Montreal",
+    "province": "QC",
+    "postalCode": "H3W1M6",
+    "generalEmail": null,
+    "established": "1971-03-30",
+    "yearsInExistence": 55.38,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "872794904RR0001",
+    "name": "Kenora & Lake Of The Woods Regional Community Foundation",
+    "address": "Po Box 441",
+    "city": "Kenora",
+    "province": "ON",
+    "postalCode": "P9N3X4",
+    "generalEmail": null,
+    "established": "2004-02-06",
+    "yearsInExistence": 22.53,
+    "group": "C",
+    "tmv": 9144667.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "874671910RR0001",
+    "name": "Kimberley & District Community Foundation",
+    "address": "Po Box 27 Stn Main",
+    "city": "Kimberley",
+    "province": "BC",
+    "postalCode": "V1A2Y5",
+    "generalEmail": null,
+    "established": "2001-09-10",
+    "yearsInExistence": 24.94,
+    "group": "A",
+    "tmv": 223093.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "118784750RR0001",
+    "name": "Kitimat Community Foundation",
+    "address": "Po Box 22 Lcd Main",
+    "city": "Kitimat",
+    "province": "BC",
+    "postalCode": "V8C2G6",
+    "generalEmail": null,
+    "established": "1981-08-29",
+    "yearsInExistence": 44.97,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "846714475RR0001",
+    "name": "Le Roi Community Foundation",
+    "address": "Po Box 3",
+    "city": "Trail",
+    "province": "BC",
+    "postalCode": "V1R4L3",
+    "generalEmail": null,
+    "established": "2007-01-01",
+    "yearsInExistence": 19.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "107391542RR0001",
+    "name": "La Fondation Communautaire Canadienne-Italienne Du Quebec Inc./Canadian-Italian Community Foundation Of Quebec Inc.",
+    "address": "8370, Boulevard Lacordaire",
+    "city": "St-Leonard",
+    "province": "QC",
+    "postalCode": "H1R3Y6",
+    "generalEmail": null,
+    "established": "1975-06-01",
+    "yearsInExistence": 51.21,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "118988310RR0001",
+    "name": "La Fondation Communautaire De Lachine/The Lachine Community Foundation",
+    "address": "990, Rue Saint-Antoine",
+    "city": "Lachine",
+    "province": "QC",
+    "postalCode": "H8S1T2",
+    "generalEmail": null,
+    "established": "1974-09-30",
+    "yearsInExistence": 51.88,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "888215597RR0001",
+    "name": "Linden Woods Community Foundation Inc",
+    "address": "19 Shoreline Dr",
+    "city": "Winnipeg",
+    "province": "MB",
+    "postalCode": "R3P2B4",
+    "generalEmail": null,
+    "established": "1992-08-19",
+    "yearsInExistence": 34.0,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "119129872RR0001",
+    "name": "Living Legacy Community Foundation Inc.",
+    "address": "Box 1343",
+    "city": "Russell",
+    "province": "MB",
+    "postalCode": "R0J1W0",
+    "generalEmail": null,
+    "established": "1977-03-29",
+    "yearsInExistence": 49.39,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "107641953RR0001",
+    "name": "London Community Foundation",
+    "address": "130 King St Covent Garden Market",
+    "city": "London",
+    "province": "ON",
+    "postalCode": "N6A1C5",
+    "generalEmail": null,
+    "established": "1977-01-01",
+    "yearsInExistence": 49.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "715287488RR0001",
+    "name": "Magellan Community Foundation",
+    "address": "207 - 1460 The Queensway",
+    "city": "Etobicoke",
+    "province": "ON",
+    "postalCode": "M8Z1S4",
+    "generalEmail": null,
+    "established": "2019-03-13",
+    "yearsInExistence": 7.43,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "842677627RR0001",
+    "name": "Melville & District Community Foundation Inc.",
+    "address": "Po Box 472",
+    "city": "Melville",
+    "province": "SK",
+    "postalCode": "S0A2P0",
+    "generalEmail": null,
+    "established": "2008-09-23",
+    "yearsInExistence": 17.9,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "840597751RR0001",
+    "name": "Muskoka Community Foundation",
+    "address": "Po Box 35 Stn Main",
+    "city": "Bracebridge",
+    "province": "ON",
+    "postalCode": "P1L1T5",
+    "generalEmail": null,
+    "established": "2007-09-06",
+    "yearsInExistence": 18.95,
+    "group": "B",
+    "tmv": 2096772.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "790734107RR0001",
+    "name": "North Peace Community Foundation",
+    "address": "103 - 10704 97 Ave",
+    "city": "Fort St. John",
+    "province": "BC",
+    "postalCode": "V1J6L7",
+    "generalEmail": null,
+    "established": "2022-01-01",
+    "yearsInExistence": 4.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "859435281RR0001",
+    "name": "Nakusp And Area Community Foundation",
+    "address": "#1 94 1st Avenue, P.O. Box 15",
+    "city": "Nakusp",
+    "province": "BC",
+    "postalCode": "V0G1R0",
+    "generalEmail": null,
+    "established": "2003-05-21",
+    "yearsInExistence": 23.24,
+    "group": "A",
+    "tmv": 388665.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "889098174RR0001",
+    "name": "Nanaimo Community Foundation",
+    "address": "Po Box 282 Stn A",
+    "city": "Nanaimo",
+    "province": "BC",
+    "postalCode": "V9R5K9",
+    "generalEmail": null,
+    "established": "1982-01-04",
+    "yearsInExistence": 44.62,
+    "group": "C",
+    "tmv": 11197925.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "867105322RR0001",
+    "name": "Niagara Community Foundation Fondation Communautaire De Niagara",
+    "address": "301 - 8 Church St",
+    "city": "St Catharines",
+    "province": "ON",
+    "postalCode": "L2R3B3",
+    "generalEmail": null,
+    "established": "2000-04-18",
+    "yearsInExistence": 26.33,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "888332475RR0001",
+    "name": "Niverville Health & Community Foundation Inc.",
+    "address": "Po Box 61",
+    "city": "Niverville",
+    "province": "MB",
+    "postalCode": "R0A1E0",
+    "generalEmail": null,
+    "established": "1994-01-01",
+    "yearsInExistence": 32.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "839113941RR0001",
+    "name": "North Bay And Area Community Foundation",
+    "address": "60 Commerce Cres",
+    "city": "North Bay",
+    "province": "ON",
+    "postalCode": "P1A0B4",
+    "generalEmail": null,
+    "established": "2006-04-18",
+    "yearsInExistence": 20.33,
+    "group": "B",
+    "tmv": 3161703.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "891642043RR0001",
+    "name": "North Shore Community Foundation",
+    "address": "Po Box 37104 Rpo Lonsdale",
+    "city": "North Vancouver",
+    "province": "BC",
+    "postalCode": "V7N4M4",
+    "generalEmail": null,
+    "established": "1988-11-14",
+    "yearsInExistence": 37.76,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "119227981RR0001",
+    "name": "Ottawa Community Foundation / Fondation Communautaire D'ottawa",
+    "address": "301-75 Albert St",
+    "city": "Ottawa",
+    "province": "ON",
+    "postalCode": "K1P5E7",
+    "generalEmail": null,
+    "established": "1987-02-09",
+    "yearsInExistence": 39.52,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "852753201RR0001",
+    "name": "Oxbow Community Foundation Inc.",
+    "address": "517 Prospect Ave Box 688",
+    "city": "Oxbow",
+    "province": "SK",
+    "postalCode": "S0C2B0",
+    "generalEmail": null,
+    "established": "2010-06-22",
+    "yearsInExistence": 16.16,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "891934374RR0001",
+    "name": "Oakville Community Foundation",
+    "address": "200 - 410 North Service Rd E",
+    "city": "Oakville",
+    "province": "ON",
+    "postalCode": "L6H5R2",
+    "generalEmail": null,
+    "established": "1994-03-10",
+    "yearsInExistence": 32.44,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "874925928RR0001",
+    "name": "Osprey Community Foundation",
+    "address": "101 - 310 Ward St",
+    "city": "Nelson",
+    "province": "BC",
+    "postalCode": "V1L5S4",
+    "generalEmail": null,
+    "established": "2000-03-17",
+    "yearsInExistence": 26.42,
+    "group": "A",
+    "tmv": 730214.0,
+    "costRecoveryFee": 0.0125
+  },
+  {
+    "craId": "858125958RR0001",
+    "name": "Ottawa Valley Community Foundation",
+    "address": "284 Pembroke Street East",
+    "city": "Pembroke",
+    "province": "ON",
+    "postalCode": "K8A6X7",
+    "generalEmail": null,
+    "established": "2008-07-25",
+    "yearsInExistence": 18.06,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "894818103RR0001",
+    "name": "Oxford Community Foundation",
+    "address": "447 Hunter St",
+    "city": "Woodstock",
+    "province": "ON",
+    "postalCode": "N4S4G7",
+    "generalEmail": null,
+    "established": "2003-12-04",
+    "yearsInExistence": 22.71,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "891528929RR0001",
+    "name": "Peninsula Community Foundation",
+    "address": "Po Box 45042 Rpo Ocean Park",
+    "city": "Surrey",
+    "province": "BC",
+    "postalCode": "V4A9L1",
+    "generalEmail": null,
+    "established": "2002-01-04",
+    "yearsInExistence": 24.62,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "847132065RR0001",
+    "name": "Pinawa Community Foundation Inc.",
+    "address": "36 Burrows Rd Po Box 100",
+    "city": "Pinawa",
+    "province": "MB",
+    "postalCode": "R0E1L0",
+    "generalEmail": null,
+    "established": "2010-10-22",
+    "yearsInExistence": 15.82,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "119094225RR0001",
+    "name": "Pitt Meadows Community Foundation",
+    "address": "Po 31741",
+    "city": "Pitt Meadows",
+    "province": "BC",
+    "postalCode": "V3Y2H1",
+    "generalEmail": null,
+    "established": "1983-06-08",
+    "yearsInExistence": 43.19,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "807769245RR0001",
+    "name": "Planted Community Foundation",
+    "address": "Suite 306, 125a-1030 Denman Street",
+    "city": "Vancouver",
+    "province": "BC",
+    "postalCode": "V6G2M6",
+    "generalEmail": null,
+    "established": "2013-06-19",
+    "yearsInExistence": 13.16,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "846775088RR0001",
+    "name": "Port Coquitlam Community Foundation",
+    "address": "2580 Shaughnessy Street",
+    "city": "Port Coquitlam",
+    "province": "BC",
+    "postalCode": "V3C2A8",
+    "generalEmail": null,
+    "established": "2012-08-30",
+    "yearsInExistence": 13.97,
+    "group": "B",
+    "tmv": 1028527.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "843496290RR0001",
+    "name": "Prince Edward County Community Foundation",
+    "address": "24 - 35 Bridge St",
+    "city": "Picton",
+    "province": "ON",
+    "postalCode": "K0K2T0",
+    "generalEmail": null,
+    "established": "2009-01-01",
+    "yearsInExistence": 17.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "870059334RR0001",
+    "name": "Parksville - Qualicum Community Foundation",
+    "address": "101 - 691 Beach Rd",
+    "city": "Qualicum Beach",
+    "province": "BC",
+    "postalCode": "V9K0A7",
+    "generalEmail": null,
+    "established": "1999-01-01",
+    "yearsInExistence": 27.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "865842462RR0001",
+    "name": "Plum Coulee Community Foundation Inc.",
+    "address": "Po Box 38",
+    "city": "Plum Coulee",
+    "province": "MB",
+    "postalCode": "R0G1R0",
+    "generalEmail": null,
+    "established": "2002-09-16",
+    "yearsInExistence": 23.92,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "898951504RR0001",
+    "name": "Port Dover / Woodhouse & District Community Foundation",
+    "address": "19 Market Street West P.O. Box 239",
+    "city": "Port Dover",
+    "province": "ON",
+    "postalCode": "N0A1N0",
+    "generalEmail": null,
+    "established": "2003-08-06",
+    "yearsInExistence": 23.03,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "868776782RR0001",
+    "name": "Powell River Community Foundation",
+    "address": "Po Box 335 Stn Main",
+    "city": "Powell River",
+    "province": "BC",
+    "postalCode": "V8A5C2",
+    "generalEmail": null,
+    "established": "2000-05-26",
+    "yearsInExistence": 26.23,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "869061275RR0001",
+    "name": "Prince Albert And Area Community Foundation Inc",
+    "address": "P.O. Box 291",
+    "city": "Prince Albert",
+    "province": "SK",
+    "postalCode": "S6V5R5",
+    "generalEmail": null,
+    "established": "2000-11-08",
+    "yearsInExistence": 25.78,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "876149618RR0001",
+    "name": "Prince Rupert Regional Community Foundation",
+    "address": "P.O. Box 66",
+    "city": "Prince Rupert",
+    "province": "BC",
+    "postalCode": "V8J3P4",
+    "generalEmail": null,
+    "established": "2001-05-10",
+    "yearsInExistence": 25.27,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "747079960RR0001",
+    "name": "Redwood Community Foundation",
+    "address": "1 - 92 Davidson St",
+    "city": "Barrie",
+    "province": "ON",
+    "postalCode": "L4M3R8",
+    "generalEmail": null,
+    "established": "2026-04-01",
+    "yearsInExistence": 0.38,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "836349829RR0001",
+    "name": "Rivers And Area Community Foundation Inc.",
+    "address": "Po Box 714",
+    "city": "Rivers",
+    "province": "MB",
+    "postalCode": "R0K1X0",
+    "generalEmail": null,
+    "established": "2009-06-12",
+    "yearsInExistence": 17.18,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "844804658RR0001",
+    "name": "Real Opportunities In Community Foundation Society",
+    "address": "3 Macquarrie Drive Extension",
+    "city": "Port Hawkesbury",
+    "province": "NS",
+    "postalCode": "B9A3A3",
+    "generalEmail": null,
+    "established": "2010-10-07",
+    "yearsInExistence": 15.86,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "790547723RR0001",
+    "name": "Revelstoke Community Foundation",
+    "address": "Po Box 2398",
+    "city": "Revelstoke",
+    "province": "BC",
+    "postalCode": "V0E2S0",
+    "generalEmail": null,
+    "established": "1998-11-25",
+    "yearsInExistence": 27.73,
+    "group": "B",
+    "tmv": 3362690.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "897837258RR0001",
+    "name": "Richmond Community Foundation",
+    "address": "190 - 7000 Minoru Boulevard",
+    "city": "Richmond",
+    "province": "BC",
+    "postalCode": "V6Y3Z5",
+    "generalEmail": null,
+    "established": "1990-05-29",
+    "yearsInExistence": 36.22,
+    "group": "C",
+    "tmv": 6102508.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "870483609RR0001",
+    "name": "Roblin District Community Foundation Inc.",
+    "address": "P.O. Box 1599",
+    "city": "Roblin",
+    "province": "MB",
+    "postalCode": "R0L1P0",
+    "generalEmail": null,
+    "established": "2004-01-01",
+    "yearsInExistence": 22.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "802445312RR0001",
+    "name": "Saanich Peninsula Community Foundation",
+    "address": "9768 Third St",
+    "city": "Sidney",
+    "province": "BC",
+    "postalCode": "V8L3A4",
+    "generalEmail": null,
+    "established": "2019-11-20",
+    "yearsInExistence": 6.74,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "720216936RR0001",
+    "name": "Senators Community Foundation / Fondation Communautaire Des Senateurs",
+    "address": "110 - 1000 Palladium Dr",
+    "city": "Kanata",
+    "province": "ON",
+    "postalCode": "K2V1A5",
+    "generalEmail": null,
+    "established": "2021-01-26",
+    "yearsInExistence": 5.56,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "876771676RR0001",
+    "name": "Shoal Lake Community Foundation Inc.",
+    "address": "Box 323",
+    "city": "Shoal Lake",
+    "province": "MB",
+    "postalCode": "R0J1Z0",
+    "generalEmail": null,
+    "established": "2013-04-17",
+    "yearsInExistence": 13.34,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "119227452RR0001",
+    "name": "Sarnia Community Foundation",
+    "address": "109 Durand St",
+    "city": "Sarnia",
+    "province": "ON",
+    "postalCode": "N7T5A1",
+    "generalEmail": null,
+    "established": "1983-01-01",
+    "yearsInExistence": 43.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "890271448RR0001",
+    "name": "Saskatchewan Community Foundation Corp.",
+    "address": "1911 Broad St",
+    "city": "Regina",
+    "province": "SK",
+    "postalCode": "S4P1Y1",
+    "generalEmail": null,
+    "established": "1969-07-15",
+    "yearsInExistence": 57.09,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "119140911RR0001",
+    "name": "Saskatoon Community Foundation",
+    "address": "101 - 308 4th Ave N",
+    "city": "Saskatoon",
+    "province": "SK",
+    "postalCode": "S7K2L7",
+    "generalEmail": null,
+    "established": "1970-04-18",
+    "yearsInExistence": 56.33,
+    "group": "F",
+    "tmv": 100230567.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "897470464RR0001",
+    "name": "Selkirk & District Community Foundation Inc.",
+    "address": "200 Eaton Avenue",
+    "city": "Selkirk",
+    "province": "MB",
+    "postalCode": "R1A0W6",
+    "generalEmail": null,
+    "established": "1995-06-14",
+    "yearsInExistence": 31.18,
+    "group": "D",
+    "tmv": 15959908.0,
+    "costRecoveryFee": 0.0122
+  },
+  {
+    "craId": "887836468RR0001",
+    "name": "Shuswap Community Foundation",
+    "address": "Po Box 624 Stn Main",
+    "city": "Salmon Arm",
+    "province": "BC",
+    "postalCode": "V1E4N7",
+    "generalEmail": "info@shuswapfoundation.ca",
+    "established": "1994-07-14",
+    "yearsInExistence": 32.09,
+    "group": "D",
+    "tmv": 20296261.0,
+    "costRecoveryFee": 0.016
+  },
+  {
+    "craId": "882548902RR0001",
+    "name": "Squamish Community Foundation",
+    "address": "Po Box 555",
+    "city": "Squamish",
+    "province": "BC",
+    "postalCode": "V8B0A5",
+    "generalEmail": null,
+    "established": "2004-01-01",
+    "yearsInExistence": 22.63,
+    "group": "A",
+    "tmv": 180484.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "868755646RR0001",
+    "name": "St Albert Community Foundation",
+    "address": "2700 Commerce Place 10155 - 102 Street",
+    "city": "Edmonton",
+    "province": "AB",
+    "postalCode": "T5J4G8",
+    "generalEmail": null,
+    "established": "1999-01-01",
+    "yearsInExistence": 27.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "883654899RR0001",
+    "name": "St Clair O'connor Community Foundation",
+    "address": "2701 St Clair Ave East",
+    "city": "Toronto",
+    "province": "ON",
+    "postalCode": "M4B1M5",
+    "generalEmail": null,
+    "established": "1997-08-27",
+    "yearsInExistence": 28.98,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "884884305RR0001",
+    "name": "Stratford And Perth County Community Foundation",
+    "address": "35 Waterloo St N",
+    "city": "Stratford",
+    "province": "ON",
+    "postalCode": "N5A5H6",
+    "generalEmail": null,
+    "established": "2004-02-13",
+    "yearsInExistence": 22.51,
+    "group": "C",
+    "tmv": 9618516.0,
+    "costRecoveryFee": 0.02
+  },
+  {
+    "craId": "884166760RR0001",
+    "name": "Sturgeon Community Foundation Inc.",
+    "address": "Po Box 129",
+    "city": "Dominion City",
+    "province": "MB",
+    "postalCode": "R0A0H0",
+    "generalEmail": null,
+    "established": "1998-11-01",
+    "yearsInExistence": 27.8,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "892677543RR0001",
+    "name": "Sudbury Community Foundation / Fondation Communautaire De Sudbury",
+    "address": "200a - 957 Cambrian Heights Dr",
+    "city": "Sudbury",
+    "province": "ON",
+    "postalCode": "P3C5S5",
+    "generalEmail": null,
+    "established": "1996-02-06",
+    "yearsInExistence": 30.53,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "865368526RR0001",
+    "name": "Sunset Community Foundation",
+    "address": "Po Box 1114",
+    "city": "Grand Bend",
+    "province": "ON",
+    "postalCode": "N0M1T0",
+    "generalEmail": null,
+    "established": "2002-01-15",
+    "yearsInExistence": 24.59,
+    "group": "B",
+    "tmv": 3563250.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "892378043RR0001",
+    "name": "Surreycares Community Foundation",
+    "address": "Po Box 34089",
+    "city": "Surrey",
+    "province": "BC",
+    "postalCode": "V3S8C4",
+    "generalEmail": null,
+    "established": "1994-05-24",
+    "yearsInExistence": 32.23,
+    "group": "C",
+    "tmv": 9329239.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "880033808RR0001",
+    "name": "Sussex Area Community Foundation Incorporated",
+    "address": "625y Main St",
+    "city": "Sussex",
+    "province": "NB",
+    "postalCode": "E4E7H5",
+    "generalEmail": null,
+    "established": "2004-02-16",
+    "yearsInExistence": 22.51,
+    "group": "B",
+    "tmv": 2302737.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "837514223RR0001",
+    "name": "The Carleton North Community Foundation",
+    "address": "8 Mccain Street",
+    "city": "Florenceville-Bristol",
+    "province": "NB",
+    "postalCode": "E7L3H6",
+    "generalEmail": null,
+    "established": "2009-03-05",
+    "yearsInExistence": 17.45,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "892102286RR0001",
+    "name": "The Catholic Community Foundation Of Waterloo Region Inc.",
+    "address": "35 Weber St. West Po Box 91116",
+    "city": "Kitchener",
+    "province": "ON",
+    "postalCode": "N2G4G2",
+    "generalEmail": null,
+    "established": "1995-01-01",
+    "yearsInExistence": 31.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "873483671RR0001",
+    "name": "The Cochrane And District Community Foundation",
+    "address": "245091 Jumping Pound Rd",
+    "city": "Calgary",
+    "province": "AB",
+    "postalCode": "T3Z2C6",
+    "generalEmail": null,
+    "established": "2020-09-17",
+    "yearsInExistence": 5.92,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "875948226RR0001",
+    "name": "The Pas Tri Community Foundation Inc.",
+    "address": "Po Box 3773 Stn Main",
+    "city": "The Pas",
+    "province": "MB",
+    "postalCode": "R9A1S4",
+    "generalEmail": null,
+    "established": "2022-05-13",
+    "yearsInExistence": 4.26,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "129471546RR0001",
+    "name": "The Quebec City English-Speaking Community Foundation La Fondation De La Communauté D'expression Anglaise De Québec",
+    "address": "2000 - 1270 Ch Sainte-Foy",
+    "city": "Quebec",
+    "province": "QC",
+    "postalCode": "G1S2M4",
+    "generalEmail": null,
+    "established": "1976-10-22",
+    "yearsInExistence": 49.82,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "892601246RR0001",
+    "name": "The Alberni Valley Community Foundation",
+    "address": "3100 Kingsway Ave",
+    "city": "Port Alberni",
+    "province": "BC",
+    "postalCode": "V9Y3B1",
+    "generalEmail": null,
+    "established": "1995-02-02",
+    "yearsInExistence": 31.54,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "896594884RR0001",
+    "name": "The Brandon Area Community Foundation Inc.",
+    "address": "P.O. Box 22096",
+    "city": "Brandon",
+    "province": "MB",
+    "postalCode": "R7A6Y9",
+    "generalEmail": null,
+    "established": "1967-01-01",
+    "yearsInExistence": 59.63,
+    "group": "D",
+    "tmv": 21615921.0,
+    "costRecoveryFee": 0.0125
+  },
+  {
+    "craId": "889092284RR0001",
+    "name": "The Brockville Community Foundation",
+    "address": "P.O. Box 155",
+    "city": "Brockville",
+    "province": "ON",
+    "postalCode": "K6V5V2",
+    "generalEmail": null,
+    "established": "1986-09-13",
+    "yearsInExistence": 39.93,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "132004177RR0001",
+    "name": "The Chatham Kent Community Foundation",
+    "address": "Po Box 35  Stn Main",
+    "city": "Chatham",
+    "province": "ON",
+    "postalCode": "N7M5K1",
+    "generalEmail": null,
+    "established": "1991-09-30",
+    "yearsInExistence": 34.88,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "853376531RR0001",
+    "name": "The Community Foundation Of Newfoundland And Labrador",
+    "address": "209 - 31 Peet St",
+    "city": "St. John's",
+    "province": "NL",
+    "postalCode": "A1B3W8",
+    "generalEmail": null,
+    "established": "2002-01-01",
+    "yearsInExistence": 24.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "870389368RR0001",
+    "name": "The Community Foundation Of Nova Scotia Society",
+    "address": "G001 - 6074 Lady Hammond Rd",
+    "city": "Halifax",
+    "province": "NS",
+    "postalCode": "B3K2R7",
+    "generalEmail": null,
+    "established": "1998-10-01",
+    "yearsInExistence": 27.88,
+    "group": "E",
+    "tmv": 30581319.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "868038951RR0001",
+    "name": "The Community Foundation Of Orillia And Area",
+    "address": "Po Box 622 Stn Main",
+    "city": "Orillia",
+    "province": "ON",
+    "postalCode": "L3V6K5",
+    "generalEmail": null,
+    "established": "1999-02-17",
+    "yearsInExistence": 27.5,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "890011190RR0001",
+    "name": "The Community Foundation Of Prince Edward Island Inc.",
+    "address": "53 Water St",
+    "city": "Charlottetown",
+    "province": "PE",
+    "postalCode": "C1A1A3",
+    "generalEmail": null,
+    "established": "1994-05-17",
+    "yearsInExistence": 32.25,
+    "group": "D",
+    "tmv": 14000000.0,
+    "costRecoveryFee": 0.015
+  },
+  {
+    "craId": "862079258RR0001",
+    "name": "The Deep River And District Community Foundation",
+    "address": "Po Box 1171",
+    "city": "Deep River",
+    "province": "ON",
+    "postalCode": "K0J1P0",
+    "generalEmail": null,
+    "established": "2002-10-03",
+    "yearsInExistence": 23.88,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "846140952RR0001",
+    "name": "The Ed Stelmach Community Foundation",
+    "address": "P.O. Box 70",
+    "city": "Vegreville",
+    "province": "AB",
+    "postalCode": "T9C1R1",
+    "generalEmail": null,
+    "established": "2007-07-30",
+    "yearsInExistence": 19.05,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "122437072RR0001",
+    "name": "The Edmonton Community Foundation",
+    "address": "9910 103 Street Nw",
+    "city": "Edmonton",
+    "province": "AB",
+    "postalCode": "T5K2V7",
+    "generalEmail": null,
+    "established": "1989-01-01",
+    "yearsInExistence": 37.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "119257756RR0001",
+    "name": "The Greater Saint John Community Foundation La Fondation Communautaire De Grand Saint John",
+    "address": "P.O. Box 20061 Brunswick Square",
+    "city": "Saint John",
+    "province": "NB",
+    "postalCode": "E2L5B2",
+    "generalEmail": null,
+    "established": "1977-01-01",
+    "yearsInExistence": 49.63,
+    "group": "E",
+    "tmv": 26519098.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "867278350RR0001",
+    "name": "The Guelph Community Foundation",
+    "address": "Po Box 1311",
+    "city": "Guelph",
+    "province": "ON",
+    "postalCode": "N1H6N6",
+    "generalEmail": null,
+    "established": "1999-07-09",
+    "yearsInExistence": 27.11,
+    "group": "D",
+    "tmv": 15300545.0,
+    "costRecoveryFee": 0.02
+  },
+  {
+    "craId": "892930165RR0001",
+    "name": "The Interlake Community Foundation Inc.",
+    "address": "Po Box 1575",
+    "city": "Stonewall",
+    "province": "MB",
+    "postalCode": "R0C2Z0",
+    "generalEmail": null,
+    "established": "1995-05-25",
+    "yearsInExistence": 31.23,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "119244051RR0001",
+    "name": "The Maple Ridge Community Foundation",
+    "address": "Po Box 370",
+    "city": "Maple Ridge",
+    "province": "BC",
+    "postalCode": "V2X8K9",
+    "generalEmail": null,
+    "established": "1976-07-09",
+    "yearsInExistence": 50.11,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "119259794RR0001",
+    "name": "The Norfolk Community Foundation",
+    "address": "Po Box 999",
+    "city": "Simcoe",
+    "province": "ON",
+    "postalCode": "N3Y5B3",
+    "generalEmail": null,
+    "established": "1988-01-29",
+    "yearsInExistence": 38.55,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "824015556RR0001",
+    "name": "The Northeast Regional Community Foundation",
+    "address": "1212 103 Ave",
+    "city": "Dawson Creek",
+    "province": "BC",
+    "postalCode": "V1G2G9",
+    "generalEmail": null,
+    "established": "2008-01-01",
+    "yearsInExistence": 18.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "136729142RR0001",
+    "name": "The Ottawa Jewish Community Foundation",
+    "address": "21 Nadolny Sachs Private",
+    "city": "Ottawa",
+    "province": "ON",
+    "postalCode": "K2A1R9",
+    "generalEmail": null,
+    "established": "1989-03-04",
+    "yearsInExistence": 37.46,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "874462112RR0001",
+    "name": "The Perth And District Community Foundation",
+    "address": "1a - 77 Gore St E",
+    "city": "Perth",
+    "province": "ON",
+    "postalCode": "K7H1H8",
+    "generalEmail": null,
+    "established": "2002-10-11",
+    "yearsInExistence": 23.85,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "891160343RR0001",
+    "name": "The Prince George Community Foundation",
+    "address": "102 - 1584 7th Ave",
+    "city": "Prince George",
+    "province": "BC",
+    "postalCode": "V2L3P4",
+    "generalEmail": null,
+    "established": "1996-09-01",
+    "yearsInExistence": 29.96,
+    "group": "D",
+    "tmv": 17404868.0,
+    "costRecoveryFee": 0.0125
+  },
+  {
+    "craId": "889161717RR0001",
+    "name": "The Quesnel Community Foundation",
+    "address": "335a Vaughan St",
+    "city": "Quesnel",
+    "province": "BC",
+    "postalCode": "V2J2T1",
+    "generalEmail": null,
+    "established": "2001-04-25",
+    "yearsInExistence": 25.31,
+    "group": "B",
+    "tmv": 4809297.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "894322825RR0001",
+    "name": "The Steinbach Community Foundation Inc.",
+    "address": "1 - 385 Loewen Blvd",
+    "city": "Steinbach",
+    "province": "MB",
+    "postalCode": "R5G0B3",
+    "generalEmail": null,
+    "established": "1999-01-01",
+    "yearsInExistence": 27.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "888898723RR0001",
+    "name": "The Temagami Community Foundation",
+    "address": "Po Box 338         .",
+    "city": "Temagami",
+    "province": "ON",
+    "postalCode": "P0H2H0",
+    "generalEmail": null,
+    "established": "2001-05-31",
+    "yearsInExistence": 25.22,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "898228374RR0001",
+    "name": "The Thompson Community Foundation",
+    "address": "Po Box 1074",
+    "city": "Thompson",
+    "province": "MB",
+    "postalCode": "R8N0X2",
+    "generalEmail": null,
+    "established": "1995-02-22",
+    "yearsInExistence": 31.49,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "899032635RR0001",
+    "name": "The Winkler Community Foundation Inc.",
+    "address": "2 - 880l 15th St",
+    "city": "Winkler",
+    "province": "MB",
+    "postalCode": "R6W0H5",
+    "generalEmail": null,
+    "established": "1994-09-01",
+    "yearsInExistence": 31.96,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "889101978RR0001",
+    "name": "The Yellowknife Community Foundation",
+    "address": "Po Box 1620 Stn Main",
+    "city": "Yellowknife",
+    "province": "NT",
+    "postalCode": "X1A2P2",
+    "generalEmail": null,
+    "established": "1993-06-01",
+    "yearsInExistence": 33.21,
+    "group": "C",
+    "tmv": 7538614.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "119264224RR0001",
+    "name": "Thunder Bay Community Foundation",
+    "address": "101 North Syndicate Avenue Suite 312",
+    "city": "Thunder Bay",
+    "province": "ON",
+    "postalCode": "P7C3V4",
+    "generalEmail": null,
+    "established": "1971-12-03",
+    "yearsInExistence": 54.71,
+    "group": "D",
+    "tmv": 15775985.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "893253583RR0001",
+    "name": "Tiger Hills Community Foundation Inc.",
+    "address": "Box 342",
+    "city": "Treherne",
+    "province": "MB",
+    "postalCode": "R0G2V0",
+    "generalEmail": null,
+    "established": "1997-01-01",
+    "yearsInExistence": 29.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "892028242RR0001",
+    "name": "Vancity Community Foundation",
+    "address": "409 - 312 Main St",
+    "city": "Vancouver",
+    "province": "BC",
+    "postalCode": "V6A2T2",
+    "generalEmail": null,
+    "established": "1989-06-09",
+    "yearsInExistence": 37.19,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "132170994RR0001",
+    "name": "Waterloo Region Community Foundation",
+    "address": "200 - 2 King St W",
+    "city": "Kitchener",
+    "province": "ON",
+    "postalCode": "N2G1A3",
+    "generalEmail": null,
+    "established": "1967-01-01",
+    "yearsInExistence": 59.63,
+    "group": "F",
+    "tmv": 120968858.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "757881800RR0001",
+    "name": "Westlock Community Foundation",
+    "address": "Po Box 5395 Stn Main",
+    "city": "Westlock",
+    "province": "AB",
+    "postalCode": "T7P2P5",
+    "generalEmail": null,
+    "established": "2022-03-24",
+    "yearsInExistence": 4.4,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "721278927RR0001",
+    "name": "Wood Buffalo Community Foundation",
+    "address": "9917 Biggs Ave",
+    "city": "Fort Mcmurray",
+    "province": "AB",
+    "postalCode": "T9H1S2",
+    "generalEmail": null,
+    "established": "2017-04-21",
+    "yearsInExistence": 9.32,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "864411038RR0001",
+    "name": "Warkworth Community Foundation",
+    "address": "Po Box 234 67 Main St",
+    "city": "Warkworth",
+    "province": "ON",
+    "postalCode": "K0K3K0",
+    "generalEmail": null,
+    "established": "2005-03-24",
+    "yearsInExistence": 21.4,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "888765260RR0001",
+    "name": "Waterford District Community Foundation",
+    "address": "P.O. Box 1000",
+    "city": "Waterford",
+    "province": "ON",
+    "postalCode": "N0E1Y0",
+    "generalEmail": null,
+    "established": "1994-07-01",
+    "yearsInExistence": 32.13,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "890069461RR0001",
+    "name": "Wawanesa Community Foundation Inc",
+    "address": "Po Box 172",
+    "city": "Wawanesa",
+    "province": "MB",
+    "postalCode": "R0K2G0",
+    "generalEmail": null,
+    "established": "1993-10-21",
+    "yearsInExistence": 32.83,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "132171679RR0001",
+    "name": "West Vancouver Community Foundation",
+    "address": "775 15th St",
+    "city": "West Vancouver",
+    "province": "BC",
+    "postalCode": "V7T2S9",
+    "generalEmail": null,
+    "established": "1986-02-01",
+    "yearsInExistence": 40.55,
+    "group": "E",
+    "tmv": 27336285.0,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "887517332RR0001",
+    "name": "Westshore Community Foundation Inc.",
+    "address": "Box 395",
+    "city": "Gimli",
+    "province": "MB",
+    "postalCode": "R0C1B0",
+    "generalEmail": null,
+    "established": "1999-01-01",
+    "yearsInExistence": 27.63,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "890653595RR0001",
+    "name": "Windsoressex Community Foundation",
+    "address": "3200 Deziel Drive Suite 511",
+    "city": "Windsor",
+    "province": "ON",
+    "postalCode": "N8W5K8",
+    "generalEmail": null,
+    "established": "1983-12-16",
+    "yearsInExistence": 42.67,
+    "group": "E",
+    "tmv": 32203962.0,
+    "costRecoveryFee": 0.01
+  },
+  {
+    "craId": "862985595RR0001",
+    "name": "Wyoming Community Foundation",
+    "address": "546 Niagara Street",
+    "city": "Wyoming",
+    "province": "ON",
+    "postalCode": "N0N1T0",
+    "generalEmail": null,
+    "established": "2002-01-10",
+    "yearsInExistence": 24.61,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  },
+  {
+    "craId": "771575495RR0001",
+    "name": "Yorkton And District Community Foundation Inc.",
+    "address": "Po Box 304 Stn Del.Centre",
+    "city": "Yorkton",
+    "province": "SK",
+    "postalCode": "S3N2W1",
+    "generalEmail": null,
+    "established": "2019-03-21",
+    "yearsInExistence": 7.41,
+    "group": "A",
+    "tmv": null,
+    "costRecoveryFee": null
+  }
+];
+
+const staffDirectory = [
+  {
+    "craId": "887836468RR0001",
+    "firstName": "Robyn",
+    "lastName": "Keating",
+    "role": "GRANTS & FINANCE MANAGER",
+    "experienceAreas": "Community Suite/GLM",
+    "email": "robyn@shuswapfoundation.ca",
+    "phone": "+1 250-832-5428",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "887836468RR0001",
+    "firstName": "Monica",
+    "lastName": "Sigurdson",
+    "role": "EXECUTIVE DIRECTOR",
+    "experienceAreas": "Fundraising",
+    "email": "monica@shuswapfoundation.ca",
+    "phone": "+1 250-832-5428",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "887836468RR0001",
+    "firstName": "Jo",
+    "lastName": "Boxwell",
+    "role": "COMMUNICATIONS SPECIALIST",
+    "experienceAreas": "Comms",
+    "email": "jo@shuswapfoundation.ca",
+    "phone": "+1 250-832-5428",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "888499241RR0001",
+    "firstName": "Areni",
+    "lastName": "Kelleppan",
+    "role": "Executive Director",
+    "experienceAreas": null,
+    "email": "arenik@abbotsfordcf.org",
+    "phone": null,
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "888499241RR0001",
+    "firstName": "Anmol",
+    "lastName": "Baryer",
+    "role": "Grants & Administration Coordinator",
+    "experienceAreas": null,
+    "email": "anmol@abbotsfordcf.org",
+    "phone": null,
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "888499241RR0001",
+    "firstName": "Jessica",
+    "lastName": "Cottrill",
+    "role": "Social Media & Blog Content Coordinator",
+    "experienceAreas": null,
+    "email": null,
+    "phone": null,
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "888499241RR0001",
+    "firstName": "Alexis (Lexi)",
+    "lastName": "Bell",
+    "role": "Awards Specialist & Admin Support",
+    "experienceAreas": null,
+    "email": "info@abbotsfordcf.org",
+    "phone": null,
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "118843481RR0001",
+    "firstName": "Simon",
+    "lastName": "Adams",
+    "role": "Chief Executive Officer",
+    "experienceAreas": null,
+    "email": "ceo@centralokanaganfoundation.org",
+    "phone": "+1 250.861.6160",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "118843481RR0001",
+    "firstName": "Lisa",
+    "lastName": "Watson",
+    "role": "Office Administrator",
+    "experienceAreas": null,
+    "email": "lisa@centralokanaganfoundation.org",
+    "phone": "+1 250.861.6160",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "118843481RR0001",
+    "firstName": "Paula",
+    "lastName": "Mendes",
+    "role": "Manager, Community Investment & Philanthropy",
+    "experienceAreas": null,
+    "email": "paula@centralokanaganfoundation.org",
+    "phone": "+1 250.861.6160",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "118843481RR0001",
+    "firstName": "Natasha",
+    "lastName": "Grandy",
+    "role": "Finance Manager",
+    "experienceAreas": null,
+    "email": "natasha@centralokanaganfoundation.org",
+    "phone": "+1 250.861.6160",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "118843481RR0001",
+    "firstName": "Gayathri",
+    "lastName": "Manori",
+    "role": "Accountant",
+    "experienceAreas": null,
+    "email": "gayathri@centralokanaganfoundation.org",
+    "phone": "+1 250.861.6160",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "118843481RR0001",
+    "firstName": "Nicola",
+    "lastName": "Baker",
+    "role": "Senior Manager, Government Programs",
+    "experienceAreas": null,
+    "email": "nicola@centralokanaganfoundation.org",
+    "phone": "+1 250.861.6160",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "118843481RR0001",
+    "firstName": "Ricardo",
+    "lastName": "Villegas",
+    "role": "Program Manager, Reaching Home",
+    "experienceAreas": null,
+    "email": "ricardo@centralokanaganfoundation.org ",
+    "phone": "+1 250.861.6160",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "140150509RR0001",
+    "firstName": "Aaron",
+    "lastName": "McRann",
+    "role": "Chief Executive Officer",
+    "experienceAreas": null,
+    "email": "aaronmcrann@cfso.net",
+    "phone": "(250) 488-0036",
+    "ext": null,
+    "cell": "(236) 700-6696"
+  },
+  {
+    "craId": "140150509RR0001",
+    "firstName": "Muhammad",
+    "lastName": "Usman",
+    "role": "Director of Finance",
+    "experienceAreas": null,
+    "email": "musman@cfso.net",
+    "phone": "(250) 493-9311",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "140150509RR0001",
+    "firstName": "Kelly",
+    "lastName": "Helfrich",
+    "role": "Office Administrator",
+    "experienceAreas": null,
+    "email": "admin@cfso.net",
+    "phone": "(250) 493-9311",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "140150509RR0001",
+    "firstName": "Jean",
+    "lastName": "Wedenig",
+    "role": "Operations Assistant",
+    "experienceAreas": null,
+    "email": "jean@cfso.net",
+    "phone": "(250) 493-9311",
+    "ext": null,
+    "cell": null
+  },
+  {
+    "craId": "140150509RR0001",
+    "firstName": "Kevin",
+    "lastName": "Ronaghan",
+    "role": "Community Investments Manager",
+    "experienceAreas": null,
+    "email": "kevinronaghan@cfso.net",
+    "phone": "(250) 493-9311",
+    "ext": null,
+    "cell": "(236) 500-1243"
+  },
+  {
+    "craId": "140150509RR0001",
+    "firstName": "Kim",
+    "lastName": "English",
+    "role": "Regional Development Manager",
+    "experienceAreas": null,
+    "email": "kimenglish@cfso.net",
+    "phone": "(250) 493-9311",
+    "ext": null,
+    "cell": "(250) 486-2020"
+  }
+];
+
+const state = {
+  searchTerm: '', province: 'all', city: 'all', groups: [],
+  staffName: '', role: 'all', feeMax: '', expandedId: null, advOpen: false,
+};
+
+const groupLabel = (code) => (FUND_SIZE_GROUPS.find(f => f.code === (code || '').toUpperCase()) || {}).label || null;
+const esc = (s) => (s === null || s === undefined) ? '' : String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtCurrency = (n) => (n === null || n === undefined) ? null : new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(n);
+const fmtPercent = (n) => (n === null || n === undefined) ? null : (n * 100).toFixed(2) + '%';
+const fmtDate = (d) => { if (!d) return null; const dt = new Date(d); return isNaN(dt) ? d : dt.toLocaleDateString('en-CA', { year:'numeric', month:'long', day:'numeric' }); };
+const fmtYears = (y) => (y === null || y === undefined) ? null : Math.floor(y) + ' yrs';
+
+const staffByOrg = {};
+staffDirectory.forEach(s => { (staffByOrg[s.craId] = staffByOrg[s.craId] || []).push(s); });
+
+function icon(name) {
+  const paths = {
+    mapPin: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>',
+    mail: '<path d="M4 4h16v16H4z" style="display:none"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 6-10 7L2 6"></path>',
+    landmark: '<line x1="3" y1="22" x2="21" y2="22"></line><line x1="6" y1="18" x2="6" y2="11"></line><line x1="10" y1="18" x2="10" y2="11"></line><line x1="14" y1="18" x2="14" y2="11"></line><line x1="18" y1="18" x2="18" y2="11"></line><polygon points="12 2 20 7 4 7"></polygon>',
+    users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>',
+    calendar: '<rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>',
+    clock: '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>',
+    dollar: '<line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>',
+    percent: '<line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle>',
+    phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.902.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.908.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>',
+    hash: '<line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>',
+    chevronDown: '<polyline points="6 9 12 15 18 9"></polyline>',
+    chevronUp: '<polyline points="18 15 12 9 6 15"></polyline>',
+  };
+  return '<svg class="icon" viewBox="0 0 24 24">' + (paths[name] || '') + '</svg>';
+}
+
+function populateSelects() {
+  const provinces = Array.from(new Set(organizations.map(o => o.province).filter(Boolean))).sort();
+  const provSel = document.getElementById('provinceFilter');
+  provinces.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; provSel.appendChild(o); });
+
+  const roles = Array.from(new Set(staffDirectory.map(s => s.role).filter(Boolean))).sort();
+  const roleSel = document.getElementById('roleFilter');
+  roles.forEach(r => { const o = document.createElement('option'); o.value = r; o.textContent = r; roleSel.appendChild(o); });
+
+  updateCityOptions();
+}
+
+function updateCityOptions() {
+  const citySel = document.getElementById('cityFilter');
+  const current = citySel.value;
+  citySel.innerHTML = '<option value="all">All Cities</option>';
+  const cities = Array.from(new Set(organizations.filter(o => state.province === 'all' || o.province === state.province).map(o => o.city).filter(Boolean))).sort();
+  cities.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; citySel.appendChild(o); });
+  citySel.value = cities.includes(current) ? current : 'all';
+  state.city = citySel.value;
+}
+
+function renderLegend() {
+  const el = document.getElementById('groupLegend');
+  el.innerHTML = FUND_SIZE_GROUPS.map(g => (
+    `<div class="group-chip${state.groups.includes(g.code) ? ' active' : ''}" data-code="${g.code}" title="Group ${g.code}: ${g.label}">
+      <strong>${g.code}</strong>${g.label}
+    </div>`
+  )).join('');
+  el.querySelectorAll('.group-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const code = chip.dataset.code;
+      state.groups = state.groups.includes(code) ? state.groups.filter(c => c !== code) : [...state.groups, code];
+      render();
+    });
+  });
+}
+
+function getFiltered() {
+  const term = state.searchTerm.trim().toLowerCase();
+  const staffTerm = state.staffName.trim().toLowerCase();
+
+  return organizations.filter(org => {
+    const orgStaff = staffByOrg[org.craId] || [];
+
+    const matchesGeneral = !term ||
+      (org.name || '').toLowerCase().includes(term) ||
+      (org.province || '').toLowerCase().includes(term) ||
+      (org.city || '').toLowerCase().includes(term) ||
+      (org.group || '').toLowerCase().includes(term) ||
+      (groupLabel(org.group) || '').toLowerCase().includes(term) ||
+      (fmtPercent(org.costRecoveryFee) || '').toLowerCase().includes(term) ||
+      orgStaff.some(s => (`${s.firstName} ${s.lastName}`).toLowerCase().includes(term) || (s.role || '').toLowerCase().includes(term));
+
+    const matchesProvince = state.province === 'all' || org.province === state.province;
+    const matchesCity = state.city === 'all' || org.city === state.city;
+    const matchesGroup = state.groups.length === 0 || state.groups.includes(org.group);
+    const matchesStaffName = !staffTerm || orgStaff.some(s => (`${s.firstName} ${s.lastName}`).toLowerCase().includes(staffTerm));
+    const matchesRole = state.role === 'all' || orgStaff.some(s => s.role === state.role);
+    const matchesFee = !state.feeMax || org.costRecoveryFee === null || org.costRecoveryFee * 100 <= parseFloat(state.feeMax);
+
+    return matchesGeneral && matchesProvince && matchesCity && matchesGroup && matchesStaffName && matchesRole && matchesFee;
+  });
+}
+
+function renderOrgCard(org) {
+  const isExpanded = state.expandedId === org.craId;
+  const orgStaff = staffByOrg[org.craId] || [];
+
+  const staffHtml = orgStaff.length ? orgStaff.map(s => `
+    <div class="staff-item">
+      <div class="staff-name">${esc(s.firstName)} ${esc(s.lastName)}</div>
+      <div class="staff-role">${esc(s.role)}</div>
+      ${s.experienceAreas ? `<div class="staff-exp">Resource area(s): ${esc(s.experienceAreas)}</div>` : ''}
+      <div class="staff-contacts">
+        ${s.email ? `<a href="mailto:${esc(s.email)}">${icon('mail')} ${esc(s.email)}</a>` : ''}
+        ${s.phone ? `<a href="tel:${esc(s.phone)}">${icon('phone')} ${esc(s.phone)}${s.ext ? ' ext. ' + esc(s.ext) : ''}</a>` : ''}
+        ${s.cell ? `<a href="tel:${esc(s.cell)}">${icon('phone')} ${esc(s.cell)} (cell)</a>` : ''}
+      </div>
+    </div>`).join('') : '<p style="font-size:13px;color:var(--gray-400);">No staff on file yet.</p>';
+
+  return `
+  <div class="org-card">
+    <button class="org-summary" data-cra="${org.craId}">
+      <div style="flex:1;">
+        <div class="org-name-row">${icon('landmark')} <h3 class="org-name">${esc(org.name)}</h3></div>
+        <div class="org-line">${icon('mapPin')} <span>${org.address ? esc(org.address) + ', ' : ''}${esc(org.city)}${org.city && org.province ? ', ' : ''}${esc(org.province)} ${esc(org.postalCode)}</span></div>
+        ${org.generalEmail ? `<div class="org-line">${icon('mail')} <a href="mailto:${esc(org.generalEmail)}" onclick="event.stopPropagation()">${esc(org.generalEmail)}</a></div>` : ''}
+      </div>
+      <div class="summary-right">
+        ${org.group ? `<div class="group-badge"><strong>Group ${esc(org.group)}</strong>${esc(groupLabel(org.group))}</div>` : ''}
+        <div class="chevron">${isExpanded ? icon('chevronUp') : icon('chevronDown')}</div>
+      </div>
+    </button>
+    ${isExpanded ? `
+    <div class="org-detail">
+      <div class="detail-title">Full Profile</div>
+      <div class="detail-grid">
+        <div class="detail-item">${icon('calendar')} <span><strong>Established:</strong> ${fmtDate(org.established) || '—'}</span></div>
+        <div class="detail-item">${icon('clock')} <span><strong>Years in Existence:</strong> ${fmtYears(org.yearsInExistence) || '—'}</span></div>
+        <div class="detail-item">${icon('dollar')} <span><strong>TMV / Funds Under Mgmt:</strong> ${fmtCurrency(org.tmv) || '—'} (Group ${esc(org.group)})</span></div>
+        <div class="detail-item fee">${icon('percent')} <span><strong>Cost Recovery / Admin Fee:</strong> ${fmtPercent(org.costRecoveryFee) || '—'}</span></div>
+      </div>
+      <div class="detail-title" style="display:flex;align-items:center;gap:6px;">${icon('users')} Staff Directory</div>
+      ${staffHtml}
+      <div class="cra-id">${icon('hash')} CRA Charity Registration #: ${esc(org.craId)}</div>
+    </div>` : ''}
+  </div>`;
+}
+
+function render() {
+  renderLegend();
+  const filtered = getFiltered();
+  document.getElementById('resultsCount').textContent = `Found ${filtered.length} Community Foundation${filtered.length !== 1 ? 's' : ''}`;
+  document.getElementById('orgList').innerHTML = filtered.map(renderOrgCard).join('');
+  document.getElementById('emptyState').style.display = filtered.length ? 'none' : 'block';
+
+  document.querySelectorAll('.org-summary').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cra = btn.dataset.cra;
+      state.expandedId = state.expandedId === cra ? null : cra;
+      render();
+    });
+  });
+
+  const activeCount = (state.province !== 'all' ? 1 : 0) + (state.city !== 'all' ? 1 : 0) + state.groups.length +
+    (state.staffName ? 1 : 0) + (state.role !== 'all' ? 1 : 0) + (state.feeMax ? 1 : 0);
+  document.getElementById('filterCount').textContent = activeCount;
+  document.getElementById('clearFilters').style.display = activeCount > 0 ? 'inline-flex' : 'none';
+}
+
+document.getElementById('searchTerm').addEventListener('input', e => { state.searchTerm = e.target.value; render(); });
+document.getElementById('provinceFilter').addEventListener('change', e => { state.province = e.target.value; updateCityOptions(); render(); });
+document.getElementById('cityFilter').addEventListener('change', e => { state.city = e.target.value; render(); });
+document.getElementById('staffNameFilter').addEventListener('input', e => { state.staffName = e.target.value; render(); });
+document.getElementById('roleFilter').addEventListener('change', e => { state.role = e.target.value; render(); });
+document.getElementById('feeMax').addEventListener('input', e => { state.feeMax = e.target.value; render(); });
+document.getElementById('advToggle').addEventListener('click', () => {
+  state.advOpen = !state.advOpen;
+  document.getElementById('advancedPanel').classList.toggle('open', state.advOpen);
+  document.getElementById('advChevron').textContent = state.advOpen ? '▴' : '▾';
+});
+document.getElementById('clearFilters').addEventListener('click', () => {
+  state.searchTerm = ''; state.province = 'all'; state.city = 'all'; state.groups = [];
+  state.staffName = ''; state.role = 'all'; state.feeMax = '';
+  document.getElementById('searchTerm').value = '';
+  document.getElementById('provinceFilter').value = 'all';
+  document.getElementById('staffNameFilter').value = '';
+  document.getElementById('roleFilter').value = 'all';
+  document.getElementById('feeMax').value = '';
+  updateCityOptions();
+  render();
+});
+
+populateSelects();
+render();
+</script>
+</body>
+</html>
