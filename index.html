@@ -63,9 +63,12 @@
 
   .org-card { background:#fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin-bottom: 14px; overflow:hidden; }
   .org-summary { width:100%; text-align:left; padding: 18px; background:none; border:none; cursor:pointer; display:flex; justify-content:space-between; gap:12px; }
-  .org-name-row { display:flex; align-items:center; gap:8px; margin-bottom: 6px; }
-  .org-name { font-size: 1.15rem; font-weight: 700; color: var(--gray-800); margin:0; }
-  .org-line { display:flex; align-items:flex-start; gap:8px; font-size: 13px; color: var(--gray-600); margin-top: 4px; }
+  .org-card-main { flex: 1 1 auto; min-width: 0; }
+  .org-name-row { display:flex; align-items:flex-start; gap:8px; margin-bottom: 6px; min-width: 0; }
+  .org-name-row .icon { margin-top: 3px; }
+  .org-name { font-size: 1.15rem; font-weight: 700; color: var(--gray-800); margin:0; overflow-wrap: anywhere; word-break: break-word; }
+  .org-line { display:flex; align-items:flex-start; gap:8px; font-size: 13px; color: var(--gray-600); margin-top: 4px; min-width: 0; }
+  .org-line span, .org-line a { min-width: 0; overflow-wrap: anywhere; word-break: break-word; }
   .org-line a { color: var(--blue-600); text-decoration:none; }
   .org-line a:hover { text-decoration: underline; }
 
@@ -88,6 +91,13 @@
   .staff-contacts { display:flex; flex-wrap:wrap; gap: 12px; margin-top: 8px; }
   .staff-contacts a { font-size: 11px; color: var(--blue-600); text-decoration:none; }
   .staff-contacts a:hover { text-decoration: underline; }
+
+  .btn-suggest {
+    display:flex; align-items:center; gap:8px; margin-top: 4px; padding: 10px 12px; border-radius: 8px;
+    background: var(--blue-50); color: var(--blue-700); font-size: 13px; font-weight: 600; text-decoration: none;
+  }
+  .btn-suggest:hover { background: var(--blue-100); }
+  .btn-suggest .icon { color: var(--blue-600); }
 
   .cra-id { display:flex; align-items:center; gap:6px; font-size: 11px; color: var(--gray-400); padding-top: 12px; border-top: 1px solid var(--gray-100); }
 
@@ -132,7 +142,7 @@
     <div class="advanced" id="advancedPanel">
       <div class="field">
         <label>Staff Member Name</label>
-        <input type="text" id="staffNameFilter" placeholder="e.g., Monica Sigurdson" />
+        <input type="text" id="staffNameFilter" placeholder="First or last name (e.g., Monica or Sigurdson)" />
       </div>
       <div class="field">
         <label>Staff Role</label>
@@ -162,12 +172,10 @@
   </div>
 
   <div class="footer">
-    <p>Data source: TEST_2024_CRA_Public_Dataset (Org tab).
-</p>Staff Tab: Privacy OK needed? 
-</p>Password Protect needed?
-</p>Alignment issue w. some entries
-</p>.json file edits
-    <p>Experience Areas keyword search?</p>
+    <p>Data source: Canadian CF Info Sheet (Org &amp; Staff tabs).</p>
+    <p>Staff Tab: Privacy OK needed?</p>
+</p>Password Protect?</p>
+</p>Exp. Area keyword search?
   </div>
 </div>
 
@@ -196,6 +204,10 @@
 // Data is loaded at runtime from this JSON file (must sit next to index.html
 // when deployed, e.g. on GitHub Pages). See cf_data.json.
 const DATA_URL = './cf_data.json';
+
+// Where the "Suggest an update" button on each entry sends its email.
+// Change this to whichever address should receive corrections.
+const UPDATE_EMAIL = 'rjparent99@gmail.com';
 
 let FUND_SIZE_GROUPS = [
   { code: 'A', label: '<$1M' },
@@ -332,7 +344,7 @@ function renderOrgCard(org) {
   return `
   <div class="org-card">
     <button class="org-summary" data-cra="${org.craId}">
-      <div style="flex:1;">
+      <div class="org-card-main">
         <div class="org-name-row">${icon('landmark')} <h3 class="org-name">${esc(org.name)}</h3></div>
         <div class="org-line">${icon('mapPin')} <span>${org.address ? esc(org.address) + ', ' : ''}${esc(org.city)}${org.city && org.province ? ', ' : ''}${esc(org.province)} ${esc(org.postalCode)}</span></div>
         ${org.contactUrl ? `<div class="org-line">${icon('globe')} <a href="${esc(org.contactUrl)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${esc(org.contactUrl.replace(/^https?:\/\//, ''))}</a></div>` : ''}
@@ -353,9 +365,23 @@ function renderOrgCard(org) {
       </div>
       <div class="detail-title" style="display:flex;align-items:center;gap:6px;">${icon('users')} Staff Directory</div>
       ${staffHtml}
+      <a class="btn-suggest" href="${buildUpdateMailto(org)}" onclick="event.stopPropagation()">${icon('mail')} Suggest an update to this entry or its staff listing</a>
       <div class="cra-id">${icon('hash')} CRA Charity Registration #: ${esc(org.craId)}</div>
     </div>` : ''}
   </div>`;
+}
+
+function buildUpdateMailto(org) {
+  const subject = `CF Guide update: ${org.name}`;
+  const body = [
+    `Organization: ${org.name}`,
+    `CRA #: ${org.craId}`,
+    '',
+    'What needs to be updated (organization info and/or staff listing)?',
+    '',
+    '',
+  ].join('\n');
+  return `mailto:${UPDATE_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function render() {
